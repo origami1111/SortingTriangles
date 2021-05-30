@@ -1,47 +1,57 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SortingTriangles
 {
     class Triangle : IComparable<Triangle>
     {
-        private string name;
-        private double a;
-        private double b;
-        private double c;
+        public string NameTriangle { get; set; }
+        public double SideA { get; set; }
+        public double SideB { get; set; }
+        public double SideC { get; set; }
 
         public Triangle() { }
-        public Triangle(string name, double a, double b, double c)
+        public Triangle(string nameTriangle, double sideA, double sideB, double sideC)
         {
-            this.name = name;
-            this.a = a;
-            this.b = b;
-            this.c = c;
+            this.NameTriangle = nameTriangle;
+            this.SideA = sideA;
+            this.SideB = sideB;
+            this.SideC = sideC;
         }
 
         public int CompareTo(Triangle other)
         {
-            if (this.getArea() > other.getArea())
+            if (this.GetArea() > other.GetArea())
+            {
                 return -1;
-            if (this.getArea() < other.getArea())
+            }   
+            if (this.GetArea() < other.GetArea())
+            {
                 return 1;
+            }
             else
+            {
                 return 0;
+            }       
         }
 
-        public double getArea()
+        public void TriangleExists() // проверка на существование треугольника
         {
-            double p = 0.5 * (a + b + c);
+            if (!(SideA + SideB > SideC && SideA + SideC > SideB && SideB + SideC > SideA))
+            {
+                throw new Exception("Треугольник не может существовать!");
+            }
+        }
 
-            return Math.Sqrt(p * (p - a) * (p - b) * (p - c));
+        public double GetArea()
+        {
+            double p = 0.5 * (SideA + SideB + SideC);
+
+            return Math.Sqrt(p * (p - SideA) * (p - SideB) * (p - SideC));
         }
 
         public override string ToString()
         {
-            return $"[Triangle {name}]: {Math.Round(getArea(), 2)} cm";
+            return $"[Triangle {NameTriangle}]: {Math.Round(GetArea(), 2)} cm";
         }
 
     }
