@@ -4,18 +4,18 @@ namespace SortingTriangles
 {
     class Triangle : IComparable<Triangle>
     {
-        public string NameTriangle { get; set; }
-        public double SideA { get; set; }
-        public double SideB { get; set; }
-        public double SideC { get; set; }
+        public string nameTriangle;
+        public double sideA;
+        public double sideB;
+        public double sideC;
 
         public Triangle() { }
         public Triangle(string nameTriangle, double sideA, double sideB, double sideC)
         {
-            this.NameTriangle = nameTriangle;
-            this.SideA = sideA;
-            this.SideB = sideB;
-            this.SideC = sideC;
+            this.nameTriangle = nameTriangle;
+            this.sideA = sideA;
+            this.sideB = sideB;
+            this.sideC = sideC;
         }
 
         public int CompareTo(Triangle other)
@@ -36,7 +36,7 @@ namespace SortingTriangles
 
         public void TriangleExists() // проверка на существование треугольника
         {
-            if (!(SideA + SideB > SideC && SideA + SideC > SideB && SideB + SideC > SideA))
+            if (!(sideA + sideB > sideC && sideA + sideC > sideB && sideB + sideC > sideA))
             {
                 throw new Exception("Треугольник не может существовать!");
             }
@@ -44,14 +44,14 @@ namespace SortingTriangles
 
         public double GetArea()
         {
-            double p = 0.5 * (SideA + SideB + SideC);
+            double p = 0.5 * (sideA + sideB + sideC);
 
-            return Math.Sqrt(p * (p - SideA) * (p - SideB) * (p - SideC));
+            return Math.Sqrt(p * (p - sideA) * (p - sideB) * (p - sideC));
         }
 
         public override string ToString()
         {
-            return $"[Triangle {NameTriangle}]: {Math.Round(GetArea(), 2)} cm";
+            return $"[Triangle {nameTriangle}]: {Math.Round(GetArea(), 2)} cm";
         }
 
     }
