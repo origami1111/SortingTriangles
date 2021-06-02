@@ -12,7 +12,5 @@ namespace SortingTriangles
             Console.WriteLine("Программа завершена");
             Console.ReadLine();
         }
-
-       
     }
 }

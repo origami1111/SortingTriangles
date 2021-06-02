@@ -60,8 +60,9 @@ namespace SortingTriangles
             }
         }
 
-        public List<Triangle> SetTriangles()
+        private List<Triangle> SetTriangles()
         {
+            IFormatProvider formatter = new NumberFormatInfo { NumberDecimalSeparator = "." };
             string answer;
             bool flag;
 
@@ -79,7 +80,8 @@ namespace SortingTriangles
                 flag = true;
                 while (flag)
                 {
-                    Console.Write("Формат ввода (разделитель - запятая): <имя>, <длина стороны>, <длина стороны>, <длина стороны> \n > ");
+                    Console.Write("Формат ввода (разделитель - запятая): " +
+                        "<имя>, <длина стороны>, <длина стороны>, <длина стороны> \n > ");
                     inputString = Console.ReadLine();
 
                     parameters = inputString.Split(',');
@@ -87,18 +89,9 @@ namespace SortingTriangles
                     name = parameters[0].Trim();
                     try
                     {
-                        if (!double.TryParse(parameters[1], 0, CultureInfo.InvariantCulture, out a))
-                        {
-                            throw new Exception("Параметры введены неверно!");
-                        }
-                        if (!double.TryParse(parameters[2], 0, CultureInfo.InvariantCulture, out b))
-                        {
-                            throw new Exception("Параметры введены неверно!");
-                        }
-                        if (!double.TryParse(parameters[3], 0, CultureInfo.InvariantCulture, out c))
-                        {
-                            throw new Exception("Параметры введены неверно!");
-                        }
+                        a = double.Parse(parameters[1], formatter);
+                        b = double.Parse(parameters[2], formatter);
+                        c = double.Parse(parameters[3], formatter);
 
                         triangle = new Triangle(name, a, b, c);
                         triangle.TriangleExists();
@@ -108,6 +101,10 @@ namespace SortingTriangles
                     catch (IndexOutOfRangeException)
                     {
                         Console.WriteLine("Было введено слишком мало или слишком много параметров!");
+                    }
+                    catch (FormatException)
+                    {
+                        Console.WriteLine("Параметры введены неверно!");
                     }
                     catch (Exception ex)
                     {
@@ -125,14 +122,36 @@ namespace SortingTriangles
             return triangles;
         }
 
-        public void PrintTriangles(List<Triangle> triangles)
+        private void PrintTriangles(List<Triangle> triangles)
         {
             Console.WriteLine("============= Triangles list: ===============");
-            triangles.Sort();
+            SortTriangles(triangles);
             for (int i = 0; i < triangles.Count; i++)
             {
                 Console.WriteLine($"{i + 1}. {triangles[i]}");
             }
+        }
+
+        private void SortTriangles(List<Triangle> triangles)
+        {
+            for (int i = 0; i < triangles.Count; i++)
+            {
+                for (int j = i + 1; j < triangles.Count; j++)
+                {
+                    if (triangles[i].GetArea() < triangles[j].GetArea())
+                    {
+                        Triangle temp = triangles[i];
+                        triangles[i] = triangles[j];
+                        triangles[j] = temp;
+                    }
+                }
+            }
+        }
+
+        public void GetTriangles()
+        {
+            List<Triangle> triangles = SetTriangles();
+            PrintTriangles(triangles);
         }
     }
 }

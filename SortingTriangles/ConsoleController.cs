@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-
+﻿
 namespace SortingTriangles
 {
     class ConsoleController
@@ -15,8 +14,7 @@ namespace SortingTriangles
         {
             view = new View();
             view.CheckArguments(args);
-            List<Triangle> triangles = view.SetTriangles();
-            view.PrintTriangles(triangles);
+            view.GetTriangles();
         }
     }
 }

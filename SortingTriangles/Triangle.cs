@@ -2,7 +2,7 @@
 
 namespace SortingTriangles
 {
-    class Triangle : IComparable<Triangle>
+    class Triangle
     {
         public string nameTriangle;
         public double sideA;
@@ -16,22 +16,6 @@ namespace SortingTriangles
             this.sideA = sideA;
             this.sideB = sideB;
             this.sideC = sideC;
-        }
-
-        public int CompareTo(Triangle other)
-        {
-            if (this.GetArea() > other.GetArea())
-            {
-                return -1;
-            }   
-            if (this.GetArea() < other.GetArea())
-            {
-                return 1;
-            }
-            else
-            {
-                return 0;
-            }       
         }
 
         public void TriangleExists() // проверка на существование треугольника
@@ -51,7 +35,7 @@ namespace SortingTriangles
 
         public override string ToString()
         {
-            return $"[Triangle {nameTriangle}]: {Math.Round(GetArea(), 2)} cm";
+            return $"[Triangle {nameTriangle}]: {Math.Round(GetArea(), 2)} cm^2";
         }
 
     }
