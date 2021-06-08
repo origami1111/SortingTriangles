@@ -140,12 +140,17 @@ namespace SortingTriangles
                 {
                     if (triangles[i].GetArea() < triangles[j].GetArea())
                     {
-                        Triangle temp = triangles[i];
-                        triangles[i] = triangles[j];
-                        triangles[j] = temp;
+                        Swap(triangles, i, j);
                     }
                 }
             }
+        }
+
+        private void Swap(List<Triangle> triangles, int i, int j)
+        {
+            Triangle temp = triangles[i];
+            triangles[i] = triangles[j];
+            triangles[j] = temp;
         }
 
         public void GetTriangles()
